@@ -12,22 +12,20 @@ public class LevelGenerationScript : MonoBehaviour
     void OnEnable(){
         generateLvl = true;
     }
-   void Update(){
-       if(spawnCount == 10){
-           generateLvl = false;
-       }
-        do{
-            StartCoroutine(GenerateLevel());
-       } while (generateLvl);
-   }
+    void Start(){
+        StartCoroutine(GenerateLevel());
+    }
 
    IEnumerator GenerateLevel(){
        yield return new WaitForSeconds(3f);
-       float randomXPosition = Mathf.Floor(Random.Range(-2.5f,2.5f));
+      while(generateLvl){
+       float randomXPosition = Mathf.Floor(Random.Range(-2.5f,2.5f)) + 1; 
+       Mathf.Clamp(randomXPosition, -3,3);
        Vector3 spawnPosition = new Vector3(randomXPosition,spawnOrigin.position.y,spawnOrigin.position.z);
        Instantiate(platform, spawnPosition, Quaternion.identity);
        spawnCount++;
        yield return new WaitForSeconds(3f);
+   }  
    
    }
 }

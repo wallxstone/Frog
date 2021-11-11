@@ -8,7 +8,7 @@ public class PlatformMovementScript : MonoBehaviour
 
 
    private void Update() {
-       transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+       transform.Translate(Vector3.forward * -1f*moveSpeed * Time.deltaTime);
    }
 
 }
