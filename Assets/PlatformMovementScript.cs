@@ -11,8 +11,8 @@ public class PlatformMovementScript : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
     }
    private void FixedUpdate() {
-       transform.Translate(Vector3.forward * -1f*moveSpeed * Time.fixedDeltaTime);
-       if(transform.position.z <= Player.transform.position.z){
+       transform.Translate(Vector3.forward * -1f *moveSpeed * Time.fixedDeltaTime);
+       if(transform.position.z < Player.transform.position.z - 2f){
            Destroy(gameObject);
        }
    }

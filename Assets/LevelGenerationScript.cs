@@ -17,13 +17,13 @@ public class LevelGenerationScript : MonoBehaviour
     }
 
    IEnumerator GenerateLevel(){
-       yield return new WaitForSeconds(3f);
+       yield return new WaitForSeconds(2.5f);
       while(generateLvl){
        float randomXPosition = Mathf.Floor(Random.Range(-1,2f)); 
        Vector3 spawnPosition = new Vector3(randomXPosition,spawnOrigin.position.y,spawnOrigin.position.z);
        Instantiate(platform, spawnPosition, Quaternion.identity);
        spawnCount++;
-       yield return new WaitForSeconds(3f);
+       yield return new WaitForSeconds(2.5f);
    }  
    
    }
