@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
-    [SerializeReference]float moveSpeed = 10f;
+    // [SerializeReference]float moveSpeed = 10f;
     [SerializeReference]float jumpDistance = 10f;
     [SerializeReference]float jumpHeight = 10f;
     new Rigidbody rigidbody;
@@ -19,7 +19,6 @@ public class PlayerMovementScript : MonoBehaviour
             MoveHorizontal(-1);
         }
         if(Input.GetKeyDown(KeyCode.Space)) Jump();
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
     
     void MoveHorizontal(int direction){
