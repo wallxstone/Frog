@@ -18,6 +18,8 @@ public class WaveGenerator : MonoBehaviour
     public float time;
     public float amplitude;
     float xPos;
+    public Vector3[] Positions;
+
     [Range(0,100)] public int pointsOnWave;
     [Range(0,1000)] public float multiplier;
     void Start() {
@@ -26,24 +28,32 @@ public class WaveGenerator : MonoBehaviour
         wavelength = CalculateWaveLength(frequency,v);
         amplitude = CalculateAmplitude(v,frequency);
         wave.positionCount = pointsOnWave;
+        for(int i = 0; i < pointsOnWave ; i++)
+        {
+            Positions[i] = wave.GetPosition(i);
+        }
+        for(int i = 0; i < Positions.Length - 2; i++)
+        {
+            Vector2 pointX = QuadraticBezier(Positions[i],Positions[i + 1],Positions[i + 2],1);
+            wave.SetPosition(i,pointX);
+        }
         xPos = CalculatexPos(wavelength,pointsOnWave/2);
         wave.SetPosition(pointsOnWave / 2, new Vector3(amplitude/xPos, pointsOnWave * multiplier,0 ));
         for(int i = pointsOnWave - 1; i > pointsOnWave / 2; i--)
         {
             xPos = CalculatexPos(wavelength,i);
-
             Vector3 pointPosition = new Vector3(amplitude/xPos * multiplier * 2,i  * multiplier, 0);
-
             wave.SetPosition(i, pointPosition);
         }
          for(int i = 0 ; i < (pointsOnWave / 2); i++)
         {
             xPos = CalculatexPos(wavelength,i + 1);
-
             Vector3 pointPosition = new Vector3(amplitude/xPos * multiplier * 2,i  * multiplier, 0);
             
             wave.SetPosition(i, pointPosition);
         }
+        
+        
     }
 
 
@@ -81,5 +91,11 @@ public class WaveGenerator : MonoBehaviour
         return xPos;
     }
 
-    
+    Vector2 QuadraticBezier(Vector2 a, Vector2 b, Vector2 c, float t )
+    {
+        Vector2 p0 = Vector2.Lerp(a,b,t);
+        Vector2 p1 = Vector2.Lerp(a,c,t);
+            
+            return Vector2.Lerp(p0,p1,t);
+    }
 }
